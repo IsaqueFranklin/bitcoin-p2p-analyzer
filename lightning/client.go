@@ -7,6 +7,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io/ioutil"
+	"log"
+	"os/user"
 	"time"
 
 	"google.golang.org/grpc"
@@ -59,4 +61,13 @@ func getClient(hostname string, port int, tlsFile, macaroonFile string) lnrpc.Li
 	}
 
 	return lnrpc.NewLightningClient(connection)
+}
+
+func Client() lnrpc.LightningClient {
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	homeDir := usr.HomeDir
 }
